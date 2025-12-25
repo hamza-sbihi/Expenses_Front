@@ -10,6 +10,9 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loading,setLoading] = useState<boolean>(false);
+    const [token,setToken] = useState(()=>{
+      return localStorage.getItem('token') || '';
+    });
 
     useEffect(() =>{
       if(location.state?.fromRegister){
@@ -22,7 +25,11 @@ const LoginPage = () => {
       try{
         
         setLoading(true);
-        const response = await authApi.login(username,password);
+        const response1 = await authApi.login(username,password);
+        localStorage.setItem('token',response1.data);
+        console.log('Token stored in localStorage:', response1.data);
+        console.log(localStorage.getItem('token'));
+        const response = await authApi.home();
         setMessage(response.data);
         navigate('/home');
       }
