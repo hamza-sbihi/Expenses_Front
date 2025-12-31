@@ -1,0 +1,18 @@
+.main-content{
+    display: flex;
+    gap : 20px;
+    padding : 20px;
+}
+.category{
+    flex:1;
+    align-items: center;
+}
+.category-table{
+    margin: 0 auto;
+}
+.expenses{
+    flex:2;
+}
+.expense-table{
+    margin: 0 auto;
+}
