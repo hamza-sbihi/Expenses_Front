@@ -1,7 +1,7 @@
-import {useState,useEffect} from 'react'
-import CategoryTable from './Category/CategoryTable'
-import ExpenseTable from './Expense/ExpenseTable'
-import Header from './Header'
+import {useEffect} from 'react'
+import CategoryTable from '../../Components/Category/CategoryTable'
+import ExpenseTable from '../../Components/Expense/ExpenseTable'
+import Navbar from '../../Components/Navbar/Navbar'
 import './HomePage.css'
 
 
@@ -14,9 +14,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <header className="header">
-        <Header />
-      </header>
       <div className="main-content">
         <div className="category">
           <CategoryTable />

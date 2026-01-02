@@ -10,9 +10,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loading,setLoading] = useState<boolean>(false);
-    const [token,setToken] = useState(()=>{
-      return localStorage.getItem('token') || '';
-    });
+
 
     useEffect(() =>{
       if(location.state?.fromRegister){
@@ -31,7 +29,7 @@ const LoginPage = () => {
         console.log(localStorage.getItem('token'));
         const response = await authApi.home();
         setMessage(response.data);
-        navigate('/home');
+        navigate('/');
       }
       catch(error:any){
         console.error('Error during login:', error);

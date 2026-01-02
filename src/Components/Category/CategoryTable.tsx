@@ -1,6 +1,5 @@
 import {useState,useEffect} from 'react'
-import React from 'react'
-import {coreApi} from '../../../api/coreApi'
+import {coreApi} from '../../api/coreApi'
 import CategoryForm from './CategoryForm'
 import './CategoryTable.css'
 
@@ -15,7 +14,6 @@ type FormData = {
 const CategoryTable = () => {
     const [categories,setCategories] = useState<Category[]>([]);
     const [showForm,setShowForm] = useState<boolean>(false);
-    const [formData,setFormData] = useState<FormData>({name: ''});
     const [editCategory,setEditCategory] = useState<Category | null>(null);
 
     //fetch all categories from the backend
@@ -43,7 +41,6 @@ const CategoryTable = () => {
             console.error('Error creating category:', error);
         }
         // Making sure the form data is reseted
-        setFormData({name: ''});
 
         setShowForm(false);
     }
@@ -73,7 +70,6 @@ const CategoryTable = () => {
             console.error('Error updating category:', error);
         }
         //resetting the form data
-        setFormData({name: ''});
         setShowForm(false);
         setEditCategory(null);
 

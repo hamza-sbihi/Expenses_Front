@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react'
-import { coreApi } from '../../../api/coreApi'
+import { coreApi } from '../../api/coreApi'
 import ExpenseForm from './ExpenseForm'
 import './ExpenseTable.css'
 
@@ -103,7 +103,7 @@ const ExpenseTable = () => {
         </div>
         <table className='expense-table'>
             <thead>
-                <tr>
+                <tr className='table-row'>
                     <th>ID</th>
                     <th>Description</th>
                     <th>Date</th>
@@ -114,13 +114,13 @@ const ExpenseTable = () => {
             </thead>
             <tbody>
                 {expenses.map(expense =>(
-                    <tr key = {expense.id}>
+                    <tr className='table-row' key = {expense.id}>
                         <td>{expense.id}</td>
                         <td>{expense.description}</td>
                         <td>{new Date(expense.date).toLocaleDateString()}</td>
                         <td>{expense.cost}</td>
                         <td>{expense.category.id}</td>
-                        <td>
+                        <td className='action-buttons'>
                             <button onClick={() => {
                                 setShowForm(true);
                                 //to make sure the date input is correctly formatted dd-mm-yyyy
