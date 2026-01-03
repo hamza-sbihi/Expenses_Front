@@ -1,0 +1,52 @@
+.dashboard-header {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 130px;
+}
+.header-actions {
+    display: flex;
+}
+.header-actions button{
+    border : 1px solid #213448;
+    border-radius : 8px;
+}
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 35px;
+    gap: 30px;
+    margin: 20px 130px;
+}
+
+.dashboard-content-row1 {
+    grid-column: span 1;
+    grid-row: span 2;
+    border : 1px solid #213448;
+    border-radius : 8px;
+}
+.dashboard-content-row2 {
+    grid-column: span 1;
+    grid-row: span 3;
+    border : 1px solid #213448;
+    border-radius : 8px;
+}
+.chart{
+    grid-column: span 2;
+    grid-row: span 7;
+    border : 1px solid #213448;
+    border-radius : 8px;
+
+}
+.round-chart{
+    grid-column: span 1;
+    grid-row: span 7;
+    border : 1px solid #213448;
+    border-radius : 8px;
+}
+.latest-Transactions{
+    grid-column: span 3;
+    grid-row: span 7;
+    border : 1px solid #213448;
+    border-radius : 8px;
+}

@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react'
-import { coreApi } from '../../../api/coreApi'
+import { coreApi } from '../../api/coreApi'
 import ExpenseForm from './ExpenseForm'
 import './ExpenseTable.css'
 
@@ -10,75 +10,35 @@ type Expense = {
   cost: number;
   category: {id:number};
 }
+type ExpenseTableProps = {
+    expenses: Expense[];
+    onCreate: (expense: Expense) => void;
+    onUpdate: (expense: Expense) => void;
+    onDelete: (expenseId: number) => void;
+}
 
-const ExpenseTable = () => {
+const ExpenseTable = (props: ExpenseTableProps) => {
 
-    const [expenses,setExpenses] = useState<Expense[]>([]);
     const [showForm,setShowForm] = useState<boolean>(false);
     const [editExpense,setEditExpense] = useState<Expense | null>(null);
 
-    const fetchData = async() =>{
-        try{
-            const responseExpenses = await coreApi.expense.getExpenses();
-            setExpenses(responseExpenses.data); 
-        }
-        catch(error){
-            console.error('Error fetching expenses:', error);
-        }
-    }
-
-    useEffect(() =>{
-             
-        fetchData();
-
-    },[])
 
     const handleCreate = async (expense:Expense) => {
         //creating the post data object
-        const postData = {
-            description: expense.description,
-            date: expense.date,
-            cost: expense.cost,
-            category: {id: expense.category.id}
-        }
-        try{
-            const created = await coreApi.expense.createExpense(postData);
-            setExpenses([...expenses, created.data]);
-        }
-        catch(error){
-            console.error('Error creating expense:', error);
-        }
+        props.onCreate(expense);
         setShowForm(false);
+
     }
 
     const handleDelete = async (expenseId : number) =>{
-
-        try{
-            await coreApi.expense.deleteExpense(expenseId);
-            //filtering the deleted expense from the list
-            setExpenses(expenses.filter(expense=>expense.id !== expenseId));
-        }
-        catch(error){
-            console.error('Error Deleting expense:',error);
-        }
+        //parents delete handler
+        props.onDelete(expenseId);
 
     }
 
     const handleUpdate = async (expense:Expense) => {
         //creating the put data object
-        const putData = {
-            description: expense.description,
-            date: expense.date,
-            cost: expense.cost,
-            category: {id: expense.category.id}
-        }
-        try{
-            const updated = await coreApi.expense.updateExpense(expense.id, putData);
-            setExpenses(expenses.map(exp => exp.id === expense.id ? updated.data : exp));
-        }
-        catch(error){
-            console.error('Error updating expense:', error);
-        }
+        props.onUpdate(expense);
         setShowForm(false);
         setEditExpense(null);
     }
@@ -103,7 +63,7 @@ const ExpenseTable = () => {
         </div>
         <table className='expense-table'>
             <thead>
-                <tr>
+                <tr className='table-row'>
                     <th>ID</th>
                     <th>Description</th>
                     <th>Date</th>
@@ -113,14 +73,14 @@ const ExpenseTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {expenses.map(expense =>(
-                    <tr key = {expense.id}>
+                {props.expenses.map(expense =>(
+                    <tr className='table-row' key = {expense.id}>
                         <td>{expense.id}</td>
                         <td>{expense.description}</td>
                         <td>{new Date(expense.date).toLocaleDateString()}</td>
                         <td>{expense.cost}</td>
                         <td>{expense.category.id}</td>
-                        <td>
+                        <td className='action-buttons'>
                             <button onClick={() => {
                                 setShowForm(true);
                                 //to make sure the date input is correctly formatted dd-mm-yyyy

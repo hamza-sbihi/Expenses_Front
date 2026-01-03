@@ -1,8 +1,8 @@
 import {useState,useEffect} from 'react'
-import React from 'react'
-import {coreApi} from '../../../api/coreApi'
+import {coreApi} from '../../api/coreApi'
 import CategoryForm from './CategoryForm'
 import './CategoryTable.css'
+import CategoryCard from './CategoryCard'
 
 type Category = {
   id: number;
@@ -15,7 +15,6 @@ type FormData = {
 const CategoryTable = () => {
     const [categories,setCategories] = useState<Category[]>([]);
     const [showForm,setShowForm] = useState<boolean>(false);
-    const [formData,setFormData] = useState<FormData>({name: ''});
     const [editCategory,setEditCategory] = useState<Category | null>(null);
 
     //fetch all categories from the backend
@@ -43,7 +42,6 @@ const CategoryTable = () => {
             console.error('Error creating category:', error);
         }
         // Making sure the form data is reseted
-        setFormData({name: ''});
 
         setShowForm(false);
     }
@@ -73,10 +71,13 @@ const CategoryTable = () => {
             console.error('Error updating category:', error);
         }
         //resetting the form data
-        setFormData({name: ''});
         setShowForm(false);
         setEditCategory(null);
 
+    }
+    const handleCardUpdate = (updatedCategory: Category) => {
+        setEditCategory(updatedCategory);
+        setShowForm(true);
     }
     
   return (
@@ -100,32 +101,11 @@ const CategoryTable = () => {
         
       )}
       </div>
-        <table className='category-table'>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {categories.map((category)=>(
-                    <tr key = {category.id}>
-                        <td>{category.id}</td>
-                        <td>{category.name}</td>
-                        <td className='action-buttons'>
-                            <button onClick = {() =>{
-                                setShowForm(true);
-                                setEditCategory(category);
-
-                            }}>Edit</button>
-
-                            <button onClick = {()=>{handleDelete(category.id)}}>Delete</button>                   
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <div className='cards'>
+        {categories.map((category)=>(
+            <CategoryCard category={category} OnDelete={handleDelete} OnUpdate={handleCardUpdate} />
+        ))}
+        </div>
     </div>
   )
 }

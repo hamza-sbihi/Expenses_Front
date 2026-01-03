@@ -33,6 +33,12 @@ export const coreApi =  {
         },
         deleteExpense : async (expenseId : number) =>{
             return await axiosInstance.delete(`${BASE_URL}/api/expenses/${expenseId}`);
+        },
+        getTotalExpensePerCategory : async (categoryId : number) =>{
+            return await axiosInstance.get(`${BASE_URL}/api/expenses/total/category/${categoryId}`);
+        },
+        getExpensesByCategory : async (categoryId : number) =>{
+            return await axiosInstance.get(`${BASE_URL}/api/expenses/category/${categoryId}`);
         }
 
     }

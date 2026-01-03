@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { coreApi } from '../../../api/coreApi';
+import { coreApi } from '../../api/coreApi';
 
 type Expense = {
   id: number;

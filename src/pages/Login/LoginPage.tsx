@@ -10,9 +10,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loading,setLoading] = useState<boolean>(false);
-    const [token,setToken] = useState(()=>{
-      return localStorage.getItem('token') || '';
-    });
+
 
     useEffect(() =>{
       if(location.state?.fromRegister){
@@ -31,7 +29,7 @@ const LoginPage = () => {
         console.log(localStorage.getItem('token'));
         const response = await authApi.home();
         setMessage(response.data);
-        navigate('/home');
+        navigate('/');
       }
       catch(error:any){
         console.error('Error during login:', error);
@@ -51,7 +49,8 @@ const LoginPage = () => {
     <div className = "login-container">
       <div className="login-box">
         <h2>Welcome</h2>
-        <form onSubmit={handleSubmit}>          
+        <form onSubmit={handleSubmit}> 
+            <div className='inputs-form'>         
             <input type="text"
              placeholder='Username'
              value ={username} 
@@ -68,7 +67,8 @@ const LoginPage = () => {
              onChange={(e)=>{
               setPassword(e.target.value)
             }}>
-          </input>        
+          </input>   
+          </div>     
           <br />
           <button type="submit" disabled={loading}>
             {loading? "loading..":"Login"}</button>
