@@ -2,28 +2,37 @@
     box-sizing: border-box;
 }
 .header-container {
-    display : flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items : center;
-    justify-content : space-between;
-    color:aliceblue;
-    border-bottom: 1px solid #ddd;
-    background-color: #1D1D41;
+    color:hsl(210 100% 96%);
+    background-color: #213448;
     padding: 0px 60px;
 
+}
+.navbar-navigation a{
+    color:oklch(0.92 0.02 174);
 }
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.4em 1em;
   font-size: 1.1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #fff;
-  color: #516778;
+  background-color: oklch(0.92 0.02 174);
+  color: #213448;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 .navbar-navigation {
     display: flex;
     gap: 15px;
+    justify-content: center;
+}
+.nav-logo{
+    cursor: pointer;
+    display: inline-block;
+    margin : 10px 0px ;
+
 }

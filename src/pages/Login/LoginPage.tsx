@@ -49,7 +49,8 @@ const LoginPage = () => {
     <div className = "login-container">
       <div className="login-box">
         <h2>Welcome</h2>
-        <form onSubmit={handleSubmit}>          
+        <form onSubmit={handleSubmit}> 
+            <div className='inputs-form'>         
             <input type="text"
              placeholder='Username'
              value ={username} 
@@ -66,7 +67,8 @@ const LoginPage = () => {
              onChange={(e)=>{
               setPassword(e.target.value)
             }}>
-          </input>        
+          </input>   
+          </div>     
           <br />
           <button type="submit" disabled={loading}>
             {loading? "loading..":"Login"}</button>

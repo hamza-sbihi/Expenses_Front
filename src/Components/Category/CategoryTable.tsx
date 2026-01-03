@@ -2,6 +2,7 @@ import {useState,useEffect} from 'react'
 import {coreApi} from '../../api/coreApi'
 import CategoryForm from './CategoryForm'
 import './CategoryTable.css'
+import CategoryCard from './CategoryCard'
 
 type Category = {
   id: number;
@@ -74,6 +75,10 @@ const CategoryTable = () => {
         setEditCategory(null);
 
     }
+    const handleCardUpdate = (updatedCategory: Category) => {
+        setEditCategory(updatedCategory);
+        setShowForm(true);
+    }
     
   return (
     <div>
@@ -96,32 +101,11 @@ const CategoryTable = () => {
         
       )}
       </div>
-        <table className='category-table'>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {categories.map((category)=>(
-                    <tr key = {category.id}>
-                        <td>{category.id}</td>
-                        <td>{category.name}</td>
-                        <td className='action-buttons'>
-                            <button onClick = {() =>{
-                                setShowForm(true);
-                                setEditCategory(category);
-
-                            }}>Edit</button>
-
-                            <button onClick = {()=>{handleDelete(category.id)}}>Delete</button>                   
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+        <div className='cards'>
+        {categories.map((category)=>(
+            <CategoryCard category={category} OnDelete={handleDelete} OnUpdate={handleCardUpdate} />
+        ))}
+        </div>
     </div>
   )
 }

@@ -8,6 +8,7 @@ import MainLayout from './layout/MainLayout'
 import Transactions from './pages/Transactions/Transactions'
 import Categories from './pages/Categories/Categories'
 import Dashboard from './pages/Overview/Dashboard'
+import CategoryDetails from './pages/Categories/CategoryDetails'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element = {<Dashboard/>}/>
             <Route path="/transactions" element = {<Transactions/>}/>
             <Route path="/categories" element = {<Categories/>}/>
+            <Route path="/categories/:id" element = {<CategoryDetails/>}/>
             <Route path="/incomes" />
             <Route path="/aiReview" />
           </Route>

@@ -12,7 +12,7 @@ const Navbar = () => {
     }
   return (
     <div className = "header-container">
-        <h1>Expense Tracker</h1>
+        <h1 className="nav-logo" onClick={()=>{navigate("/")}}>Budgetly</h1>
         <div className="navbar-navigation">
           <NavLink to="/">Overview</NavLink>
           <NavLink to="/transactions">Transaction</NavLink>
