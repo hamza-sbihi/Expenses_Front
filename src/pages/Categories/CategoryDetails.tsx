@@ -8,7 +8,8 @@ type Expense = {
   description: string;
   date: string;
   cost: number;
-  category: {id:number};
+  categoryId: number;
+  categoryName: string;
 }
 
 const CategoryDetails = () => {
@@ -38,11 +39,11 @@ const CategoryDetails = () => {
             description: expense.description,
             date: expense.date,
             cost: expense.cost,
-            category: {id: expense.category.id}
+            categoryId: expense.categoryId
         }
         try{
             const created = await coreApi.expense.createExpense(postData);
-            if(created.data.category.id === Number(id)){
+            if(created.data.categoryId === Number(id)){
             setExpenses([...expenses, created.data]);
             }
         }
@@ -70,11 +71,11 @@ const CategoryDetails = () => {
             description: expense.description,
             date: expense.date,
             cost: expense.cost,
-            category: {id: expense.category.id}
+            categoryId: expense.categoryId
         }
         try{
             const updated = await coreApi.expense.updateExpense(expense.id, putData);
-            if(updated.data.category.id !== Number(id)){
+            if(updated.data.categoryId !== Number(id)){
                 //if category changed, remove from current list
                 setExpenses(expenses.filter(exp => exp.id !== expense.id));
             }

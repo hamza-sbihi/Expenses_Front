@@ -76,6 +76,7 @@ const CategoryTable = () => {
 
     }
     const handleCardUpdate = (updatedCategory: Category) => {
+        console.log("here");
         setEditCategory(updatedCategory);
         setShowForm(true);
     }

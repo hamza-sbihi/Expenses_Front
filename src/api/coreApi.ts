@@ -25,10 +25,10 @@ export const coreApi =  {
         getExpenses : async () =>{
             return await axiosInstance.get(`${BASE_URL}/api/expenses`);
         },
-        createExpense : async (postData:{description:string, date:string, cost:number, category:{id:number}}) =>{
+        createExpense : async (postData:{description:string, date:string, cost:number, categoryId:number}) =>{
             return await axiosInstance.post(`${BASE_URL}/api/expenses`,postData);
         },
-        updateExpense : async (expenseId : number, putData:{description:string, date:string, cost:number, category:{id:number}}) =>{
+        updateExpense : async (expenseId : number, putData:{description:string, date:string, cost:number, categoryId:number}) =>{
             return await axiosInstance.put(`${BASE_URL}/api/expenses/${expenseId}`,putData);
         },
         deleteExpense : async (expenseId : number) =>{

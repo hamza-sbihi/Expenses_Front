@@ -6,7 +6,8 @@ type Expense = {
   description: string;
   date: string;
   cost: number;
-  category: {id:number};
+  categoryId: number;
+  categoryName: string
 }
 
 type Category = {
@@ -27,7 +28,8 @@ const ExpenseForm = (props: ExpenseFormProps) => {
         description: "",
         date: "",
         cost: 0,
-        category: { id: 0 }
+        categoryId: 0,
+        categoryName: ""
     };  
     const [formData,setFormData] = useState<Expense>(props.expense? props.expense : emptyExpense);
     const [categories,setCategories] = useState<Category[]>([]);
@@ -93,10 +95,10 @@ const ExpenseForm = (props: ExpenseFormProps) => {
             <label >
                 CategoryID:
                 <select 
-                value={formData?.category?.id}
+                value={formData?.categoryId}
                 onChange={(e)=>{
                     setFormData({...formData,
-                        category: {id: Number(e.target.value)}
+                        categoryId: Number(e.target.value)
                     })
                 }}
                 >
