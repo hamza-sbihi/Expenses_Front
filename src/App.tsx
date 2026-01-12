@@ -9,6 +9,8 @@ import Transactions from './pages/Transactions/Transactions'
 import Categories from './pages/Categories/Categories'
 import Dashboard from './pages/Overview/Dashboard'
 import CategoryDetails from './pages/Categories/CategoryDetails'
+import Sources from './pages/Incomes/Sources'
+import SourcesDetails from './pages/Incomes/SourcesDetails'
 
 function App() {
 
@@ -24,7 +26,8 @@ function App() {
             <Route path="/transactions" element = {<Transactions/>}/>
             <Route path="/categories" element = {<Categories/>}/>
             <Route path="/categories/:id" element = {<CategoryDetails/>}/>
-            <Route path="/incomes" />
+            <Route path="/incomes" element = {<Sources/>}/>
+            <Route path="/incomes/:id" element = {<SourcesDetails/>}/>
             <Route path="/aiReview" />
           </Route>
         </Route>

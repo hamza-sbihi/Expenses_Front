@@ -1,5 +1,4 @@
 import {useEffect,useState} from 'react'
-import { coreApi } from '../../api/coreApi'
 import ExpenseForm from './ExpenseForm'
 import './ExpenseTable.css'
 
