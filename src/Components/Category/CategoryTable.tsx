@@ -57,6 +57,7 @@ const CategoryTable = () => {
     }
     const handleUpdate = async (name:string) =>{
 
+        console.log(name);
         try{
             if(editCategory){
             await coreApi.category.updateCategory(editCategory.id,{name});
@@ -76,6 +77,7 @@ const CategoryTable = () => {
 
     }
     const handleCardUpdate = (updatedCategory: Category) => {
+        console.log("here");
         setEditCategory(updatedCategory);
         setShowForm(true);
     }

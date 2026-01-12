@@ -40,8 +40,12 @@ const CategoryCard = (props: CategoryCardProps) => {
 
       </div>
       <div className='action-buttons'>
-         <button onClick={() => props.OnDelete(props.category.id)}>Delete</button>
-      <button onClick={() => props.OnUpdate(props.category)}>Update</button>
+        <button onClick={(e) =>{
+          e.stopPropagation();
+          props.OnDelete(props.category.id)}}>Delete</button>
+        <button onClick={(e) =>{ 
+          e.stopPropagation();
+          props.OnUpdate(props.category)}}>Update</button>
       </div>
      
     </div>

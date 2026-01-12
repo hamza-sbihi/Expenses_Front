@@ -20,8 +20,14 @@
 }
 
 .dashboard-content-row1 {
+    padding: 10px 30px;
+    display :flex;
     grid-column: span 1;
     grid-row: span 2;
+    border : 1px solid #213448;
+    border-radius : 8px;
+}
+.dashboard-content-row1 button{
     border : 1px solid #213448;
     border-radius : 8px;
 }

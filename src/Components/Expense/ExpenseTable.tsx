@@ -1,5 +1,4 @@
 import {useEffect,useState} from 'react'
-import { coreApi } from '../../api/coreApi'
 import ExpenseForm from './ExpenseForm'
 import './ExpenseTable.css'
 
@@ -8,7 +7,8 @@ type Expense = {
   description: string;
   date: string;
   cost: number;
-  category: {id:number};
+  categoryId: number;
+  categoryName: string
 }
 type ExpenseTableProps = {
     expenses: Expense[];
@@ -79,7 +79,7 @@ const ExpenseTable = (props: ExpenseTableProps) => {
                         <td>{expense.description}</td>
                         <td>{new Date(expense.date).toLocaleDateString()}</td>
                         <td>{expense.cost}</td>
-                        <td>{expense.category.id}</td>
+                        <td>{expense.categoryName}</td>
                         <td className='action-buttons'>
                             <button onClick={() => {
                                 setShowForm(true);

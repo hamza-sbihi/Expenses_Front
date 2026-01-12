@@ -8,7 +8,8 @@ type Expense = {
   description: string;
   date: string;
   cost: number;
-  category: {id:number};
+  categoryId: number;
+  categoryName: string;
 }
 
 
@@ -36,7 +37,8 @@ const Transactions = () => {
             description: expense.description,
             date: expense.date,
             cost: expense.cost,
-            category: {id: expense.category.id}
+            categoryId: expense.categoryId
+
         }
         try{
             const created = await coreApi.expense.createExpense(postData);
@@ -64,7 +66,7 @@ const Transactions = () => {
                 description: expense.description,
                 date: expense.date,
                 cost: expense.cost,
-                category: {id: expense.category.id}
+                categoryId: expense.categoryId
             }
             try{
                 const updated = await coreApi.expense.updateExpense(expense.id, putData);

@@ -1,12 +1,12 @@
 *, *::before, *::after {
     box-sizing: border-box;
 }
-.expense-header {
+.income-header {
     display : flex;
     justify-content: space-evenly;
     align-items: center;
 }
-.expense-header button,
+.income-header button,
 .action-buttons button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -19,12 +19,12 @@
   cursor: pointer;
   transition: border-color 0.25s;
 }
-.expense-table th, .expense-table td {
+.income-table th, .income-table td {
    border: 1px solid #1D1D41;
    padding: 8px;
 
 }
-.expense-table{
+.income-table{
     margin: 0 auto;
     border: #1D1D41 2px solid;
 }

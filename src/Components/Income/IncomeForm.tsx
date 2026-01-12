@@ -1,44 +1,44 @@
 import {useEffect, useState} from 'react'
 import { coreApi } from '../../api/coreApi';
 
-type Expense = {
+type Income = {
   id: number;
   description: string;
   date: string;
-  cost: number;
-  categoryId: number;
-  categoryName: string
+  amount: number;
+  incomeSourceId: number;
+  incomeSourceName: string
 }
 
-type Category = {
+type Source = {
   id: number;
   name: string;
 }
 
-type ExpenseFormProps = {
-    expense: Expense | null;
-    onSubmit: (expense: Expense) => void;
+type IncomeFormProps = {
+    income: Income | null;
+    onSubmit: (income: Income) => void;
     onClose: () => void;
 }
 
-const ExpenseForm = (props: ExpenseFormProps) => {
+const IncomeForm = (props: IncomeFormProps) => {
 
-    const emptyExpense: Expense = {
+    const emptyIncome: Income = {
         id: 0,
         description: "",
         date: "",
-        cost: 0,
-        categoryId: 0,
-        categoryName: ""
+        amount: 0,
+        incomeSourceId: 0,
+        incomeSourceName: ""
     };  
-    const [formData,setFormData] = useState<Expense>(props.expense? props.expense : emptyExpense);
-    const [categories,setCategories] = useState<Category[]>([]);
-    const isEditMode = props.expense !== null;
+    const [formData,setFormData] = useState<Income>(props.income? props.income : emptyIncome);
+    const [sources,setSources] = useState<Source[]>([]);
+    const isEditMode = props.income !== null;
 
     const fetchData = async() => {
         try{
-            const responseCategories = await coreApi.category.getCategories();
-            setCategories(responseCategories.data);
+            const responseSources = await coreApi.incomeSource.getSources();
+            setSources(responseSources.data);
         }
         catch(error){
             console.error('Error fetching categories:', error);
@@ -46,12 +46,12 @@ const ExpenseForm = (props: ExpenseFormProps) => {
     }
     useEffect(() => {
         fetchData();
-        if (props.expense) {
-            setFormData(props.expense);
+        if (props.income) {
+            setFormData(props.income);
         } else {
-            setFormData(emptyExpense);
+            setFormData(emptyIncome);
         }
-    }, [props.expense]);
+    }, [props.income]);
 
   return (
     <div>
@@ -85,27 +85,27 @@ const ExpenseForm = (props: ExpenseFormProps) => {
             <label >
                 Cost:
                 <input 
-                 name = "cost"
+                 name = "amount"
                  type="number"
-                 value={formData?.cost}
+                 value={formData?.amount}
                  onChange={(e)=>{
-                    setFormData({...formData,cost:e.target.valueAsNumber})
+                    setFormData({...formData,amount:e.target.valueAsNumber})
                  }}/>
             </label>
             <label >
                 CategoryID:
                 <select 
-                value={formData?.categoryId}
+                value={formData?.incomeSourceId}
                 onChange={(e)=>{
                     setFormData({...formData,
-                        categoryId: Number(e.target.value)
+                        incomeSourceId: Number(e.target.value)
                     })
                 }}
                 >
                     <option value={""}>Select a category</option>
-                    {categories.map((category)=>(
-                        <option key = {category.id} value={category.id}>
-                            {category.name}
+                    {sources.map((source)=>(
+                        <option key = {source.id} value={source.id}>
+                            {source.name}
                         </option>
                     ))}
 
@@ -121,4 +121,4 @@ const ExpenseForm = (props: ExpenseFormProps) => {
   )
 }
 
-export default ExpenseForm
+export default IncomeForm
