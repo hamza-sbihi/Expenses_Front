@@ -3,10 +3,16 @@ import './Dashboard.css'
 import { matchPath, useNavigate } from 'react-router-dom'
 import { coreApi } from '../../api/coreApi';
 import DonutChart from './Charts/DonutChart';
+import HistoChart from './Charts/HistoChart';
 
 interface donutChartData {
     label : string;
     value : number
+}
+type histoData = {
+    period : string,
+    income : number,
+    expense : number
 }
 
 const Dashboard = () => {
@@ -77,6 +83,13 @@ const Dashboard = () => {
     {label:"utilites",value:900}
   ]
 
+  const histData : histoData[]=[
+    {period:"Jan",income:2000,expense:1800},
+    {period:"feb",income:3450,expense:9850},
+    {period:"MAR",income:8900,expense:6500},
+    {period:"APR",income:2130,expense:600},
+  ]
+
   return (
     <div>
       <div className='dashboard-header'>
@@ -123,6 +136,8 @@ const Dashboard = () => {
         {/* Third Row */}
           <div className="chart">
             <p>here will add chart</p>
+            <HistoChart data = {histData}/>
+
           </div>
           <div className="round-chart">
             <DonutChart data = {data}/>
