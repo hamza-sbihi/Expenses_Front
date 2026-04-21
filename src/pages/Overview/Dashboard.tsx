@@ -1,7 +1,13 @@
 import {useState,useEffect} from 'react'
 import './Dashboard.css'
 import { matchPath, useNavigate } from 'react-router-dom'
-import { coreApi } from '../../api/coreApi'
+import { coreApi } from '../../api/coreApi';
+import DonutChart from './Charts/DonutChart';
+
+interface donutChartData {
+    label : string;
+    value : number
+}
 
 const Dashboard = () => {
 
@@ -65,6 +71,12 @@ const Dashboard = () => {
     }
   }
 
+  const data :donutChartData[]=[
+    {label:"rent",value:1300},
+    {label:"cloths",value:800},
+    {label:"utilites",value:900}
+  ]
+
   return (
     <div>
       <div className='dashboard-header'>
@@ -113,6 +125,7 @@ const Dashboard = () => {
             <p>here will add chart</p>
           </div>
           <div className="round-chart">
+            <DonutChart data = {data}/>
             <p>here will add round chart</p>
           </div>
 
