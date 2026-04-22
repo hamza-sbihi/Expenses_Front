@@ -1,4 +1,3 @@
-import axios from "axios";
 import { axiosInstance } from "./axiosInstance";
 
 const BASE_URL = 'http://localhost:8080';
@@ -106,8 +105,15 @@ export const coreApi =  {
         deleteSource : async(sourceId:number)=>{
             return axiosInstance.delete(`${BASE_URL}/api/incomes_sources/${sourceId}`);
         }
-
-
-
+    },
+    stats : {
+        getExpensesDonut : async(startDate:string,endDate:string)=>{
+            return axiosInstance.get(`${BASE_URL}/api/stats/expenses/by_category`,{
+                params:{
+                    start:startDate,
+                    end:endDate
+                }
+            })
+        }
     }
 }

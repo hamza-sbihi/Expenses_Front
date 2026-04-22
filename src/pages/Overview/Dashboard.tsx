@@ -20,6 +20,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [totalIncome,SetTotalIncome] = useState<number>(0);
   const [totalExpense,setTotalExpense] = useState<number>(0);
+  const [expensesDonut,setExpensesDonut] = useState<donutChartData[]>([]);
 
   const fetchdata = async(year:number,month:number)=>{
     
@@ -35,6 +36,15 @@ const Dashboard = () => {
       console.error("error while getting income and expense by date")
     }
   }
+  const getExpenseDonut = async(startDate:string,endDate:string)=>{
+    try{
+      const responseExpenseDonut = await coreApi.stats.getExpensesDonut(startDate,endDate);
+      setExpensesDonut(responseExpenseDonut.data);
+    }
+    catch(error){
+      console.log("error while getting expense donut data");
+    }
+  }
   useEffect(()=> {
 
     getThisMonth();
@@ -46,6 +56,9 @@ const Dashboard = () => {
     const year = now.getFullYear();
     const month = now.getMonth()+1;
     fetchdata(year,month);
+    const startDate = new Date(now.getFullYear(),now.getMonth(),1);
+    const endDate = new Date(now.getFullYear(),now.getMonth()+1,1);
+    getExpenseDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
 
   }
   const getLastMonth = ()=> {
@@ -59,6 +72,9 @@ const Dashboard = () => {
     else{
       month = month-1;
     }
+    const startDate = new Date(now.getFullYear(),now.getMonth()-1,1);
+    const endDate = new Date(now.getFullYear(),now.getMonth(),1);
+    getExpenseDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
     fetchdata(year,month);
   }
   const getByYear =async()=>{
@@ -75,6 +91,9 @@ const Dashboard = () => {
     catch(error){
       console.error("error while getting income and expense by year")
     }
+    const startDate = new Date(now.getFullYear(),1,1);
+    const endDate = new Date(now.getFullYear()+1,1,1);
+    getExpenseDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
   }
 
   const data :donutChartData[]=[
@@ -140,7 +159,7 @@ const Dashboard = () => {
 
           </div>
           <div className="round-chart">
-            <DonutChart data = {data}/>
+            <DonutChart data = {expensesDonut}/>
             <p>here will add round chart</p>
           </div>
 
