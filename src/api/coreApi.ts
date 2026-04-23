@@ -1,4 +1,5 @@
 import { axiosInstance } from "./axiosInstance";
+import type { Period } from "../types/period";
 
 const BASE_URL = 'http://localhost:8080';
 
@@ -122,7 +123,17 @@ export const coreApi =  {
                     end:endDate
                 }
             })
+        },
+        getHistograme : async(startDate:string,endDate:string,period:Period) =>{
+            return axiosInstance.get(`${BASE_URL}/api/stats/histograme`,{
+                params:{
+                    start:startDate,
+                    end:endDate,
+                    period:period
+                }
+            })
         }
+    
 
     }
 }

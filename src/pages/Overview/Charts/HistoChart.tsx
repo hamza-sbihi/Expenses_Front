@@ -1,8 +1,8 @@
 import { ResponsiveContainer,BarChart,CartesianGrid,XAxis,YAxis,Bar,Tooltip,Legend } from 'recharts'
 type histoData = {
     period : string,
-    income : number,
-    expense : number
+    totalIncome : number,
+    totalExpenses : number
 }
 
 type histoProps = {
@@ -23,8 +23,8 @@ const HistoChart = (props : histoProps) => {
                 <Tooltip/>
                 <Legend/>
 
-                <Bar dataKey="income" fill="#00C49F"/>
-                <Bar dataKey="expense" fill="#FF8042"/>
+                <Bar dataKey="totalIncome" fill="#00C49F"/>
+                <Bar dataKey="totalExpenses" fill="#FF8042"/>
             </BarChart>
         </ResponsiveContainer>
       
