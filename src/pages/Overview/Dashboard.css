@@ -27,6 +27,10 @@
     border : 1px solid #213448;
     border-radius : 8px;
 }
+.donut_action_button{
+    display:flex;
+    padding: 10px 30px;
+}
 .dashboard-content-row1 button{
     border : 1px solid #213448;
     border-radius : 8px;
@@ -42,6 +46,7 @@
     grid-row: span 7;
     border : 1px solid #213448;
     border-radius : 8px;
+    padding: 30px 30px 50px 30px;
 
 }
 .round-chart{
@@ -55,4 +60,13 @@
     grid-row: span 7;
     border : 1px solid #213448;
     border-radius : 8px;
+}
+.histograme_periods{
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-evenly;  
+}
+.histograme_periods button{
+    border : 1px solid #213448;
+
 }

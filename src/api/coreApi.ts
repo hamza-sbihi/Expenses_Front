@@ -1,5 +1,5 @@
-import axios from "axios";
 import { axiosInstance } from "./axiosInstance";
+import type { Period } from "../types/period";
 
 const BASE_URL = 'http://localhost:8080';
 
@@ -106,8 +106,34 @@ export const coreApi =  {
         deleteSource : async(sourceId:number)=>{
             return axiosInstance.delete(`${BASE_URL}/api/incomes_sources/${sourceId}`);
         }
-
-
+    },
+    stats : {
+        getExpensesDonut : async(startDate:string,endDate:string)=>{
+            return axiosInstance.get(`${BASE_URL}/api/stats/expenses/by_category`,{
+                params:{
+                    start:startDate,
+                    end:endDate
+                }
+            })
+        },
+        getIncomeDonut : async(startDate:string,endDate:string)=>{
+            return axiosInstance.get(`${BASE_URL}/api/stats/income/by_source`,{
+                params:{
+                    start:startDate,
+                    end:endDate
+                }
+            })
+        },
+        getHistograme : async(startDate:string,endDate:string,period:Period) =>{
+            return axiosInstance.get(`${BASE_URL}/api/stats/histograme`,{
+                params:{
+                    start:startDate,
+                    end:endDate,
+                    period:period
+                }
+            })
+        }
+    
 
     }
 }
