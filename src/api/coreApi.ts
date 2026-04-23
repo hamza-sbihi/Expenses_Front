@@ -114,6 +114,15 @@ export const coreApi =  {
                     end:endDate
                 }
             })
+        },
+        getIncomeDonut : async(startDate:string,endDate:string)=>{
+            return axiosInstance.get(`${BASE_URL}/api/stats/income/by_source`,{
+                params:{
+                    start:startDate,
+                    end:endDate
+                }
+            })
         }
+
     }
 }

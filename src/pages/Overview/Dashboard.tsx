@@ -21,6 +21,8 @@ const Dashboard = () => {
   const [totalIncome,SetTotalIncome] = useState<number>(0);
   const [totalExpense,setTotalExpense] = useState<number>(0);
   const [expensesDonut,setExpensesDonut] = useState<donutChartData[]>([]);
+  const [incomeDonut,setIncomeDonut] = useState<donutChartData[]>([]);
+  const [isExpense,setIsExpense] = useState<boolean>(true);
 
   const fetchdata = async(year:number,month:number)=>{
     
@@ -45,6 +47,15 @@ const Dashboard = () => {
       console.log("error while getting expense donut data");
     }
   }
+  const getIncomeDonut = async(startDate:string,endDate:string)=>{
+    try{
+      const responseIncomeDonut = await coreApi.stats.getIncomeDonut(startDate,endDate);
+      setIncomeDonut(responseIncomeDonut.data);
+    }
+    catch(error){
+      console.log("error while getting expense donut data");
+    }
+  }
   useEffect(()=> {
 
     getThisMonth();
@@ -59,6 +70,8 @@ const Dashboard = () => {
     const startDate = new Date(now.getFullYear(),now.getMonth(),1);
     const endDate = new Date(now.getFullYear(),now.getMonth()+1,1);
     getExpenseDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
+    getIncomeDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
+
 
   }
   const getLastMonth = ()=> {
@@ -75,6 +88,7 @@ const Dashboard = () => {
     const startDate = new Date(now.getFullYear(),now.getMonth()-1,1);
     const endDate = new Date(now.getFullYear(),now.getMonth(),1);
     getExpenseDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
+    getIncomeDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
     fetchdata(year,month);
   }
   const getByYear =async()=>{
@@ -94,13 +108,11 @@ const Dashboard = () => {
     const startDate = new Date(now.getFullYear(),1,1);
     const endDate = new Date(now.getFullYear()+1,1,1);
     getExpenseDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
+    getIncomeDonut(startDate.toISOString().split("T")[0],endDate.toISOString().split("T")[0]);
+
   }
 
-  const data :donutChartData[]=[
-    {label:"rent",value:1300},
-    {label:"cloths",value:800},
-    {label:"utilites",value:900}
-  ]
+  const data :donutChartData[] = isExpense? expensesDonut : incomeDonut;
 
   const histData : histoData[]=[
     {period:"Jan",income:2000,expense:1800},
@@ -108,6 +120,9 @@ const Dashboard = () => {
     {period:"MAR",income:8900,expense:6500},
     {period:"APR",income:2130,expense:600},
   ]
+  const renderDonutChart = ()=>{
+    setIsExpense(prev =>!prev);
+  }
 
   return (
     <div>
@@ -154,13 +169,22 @@ const Dashboard = () => {
         
         {/* Third Row */}
           <div className="chart">
-            <p>here will add chart</p>
+            <div className="histograme_periods">
+              <button> Daily</button>
+              <button> Weekly</button>
+              <button> Monthly</button>
+              <button> Yearly</button>
+            </div>
             <HistoChart data = {histData}/>
 
           </div>
           <div className="round-chart">
-            <DonutChart data = {expensesDonut}/>
-            <p>here will add round chart</p>
+            <div className='donut_action_button'>
+              <button onClick={renderDonutChart}>{isExpense ? "Incomes":"Expenses"}</button>
+
+            </div>
+
+            <DonutChart data = {data}/>
           </div>
 
         {/*fourth Row*/}
