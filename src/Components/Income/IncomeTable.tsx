@@ -1,6 +1,7 @@
 import {useEffect,useState} from 'react'
 import IncomeForm from './IncomeForm';
 import './IncomeTable.css'
+import IncomeModal from './IncomeModal';
 
 type Income = {
   id: number;
@@ -17,16 +18,17 @@ type IncomeTableProps = {
     onDelete: (incomeId: number) => void;
 }
 
-const IncomeTable = (props: IncomeTableProps) => {
+const 
+IncomeTable = (props: IncomeTableProps) => {
 
-    const [showForm,setShowForm] = useState<boolean>(false);
+    const [showModal,setShowModal] = useState<boolean>(false);
     const [editIncome,setEditIncome] = useState<Income | null>(null);
 
 
     const handleCreate = async (income:Income) => {
         //creating the post data object
         props.onCreate(income);
-        setShowForm(false);
+        setShowModal(false);
 
     }
 
@@ -39,7 +41,7 @@ const IncomeTable = (props: IncomeTableProps) => {
     const handleUpdate = async (income:Income) => {
         //creating the put data object
         props.onUpdate(income);
-        setShowForm(false);
+        setShowModal(false);
         setEditIncome(null);
     }
 
@@ -48,15 +50,15 @@ const IncomeTable = (props: IncomeTableProps) => {
         <div className = "income-header">
             <h2>Incomes</h2>
             <button onClick={()=>{
-                setShowForm(true);
+                setShowModal(true);
                 setEditIncome(null);
             }}>Add Incomes</button>
-            {showForm &&
-            <IncomeForm
+            {showModal &&
+            <IncomeModal
              income={editIncome}
              onSubmit={editIncome? handleUpdate : handleCreate}
              onClose={() => {
-                setShowForm(false);
+                setShowModal(false);
                 setEditIncome(null);
              }}/>
             }
@@ -82,7 +84,7 @@ const IncomeTable = (props: IncomeTableProps) => {
                         <td>{income.incomeSourceName}</td>
                         <td className='action-buttons'>
                             <button onClick={() => {
-                                setShowForm(true);
+                                setShowModal(true);
                                 //to make sure the date input is correctly formatted dd-mm-yyyy
                                 setEditIncome({...income,date:new Date(income.date).toISOString().split("T")[0]});
                             }}>Edit</button>
