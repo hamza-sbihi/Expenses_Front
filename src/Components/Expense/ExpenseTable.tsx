@@ -1,6 +1,6 @@
 import {useEffect,useState} from 'react'
-import ExpenseForm from './ExpenseForm'
 import './ExpenseTable.css'
+import ExpenseModal from './ExpenseModal';
 
 type Expense = {
   id: number;
@@ -10,23 +10,28 @@ type Expense = {
   categoryId: number;
   categoryName: string
 }
+type Category = {
+  id: number;
+  name: string;
+}
 type ExpenseTableProps = {
     expenses: Expense[];
     onCreate: (expense: Expense) => void;
     onUpdate: (expense: Expense) => void;
     onDelete: (expenseId: number) => void;
+    expCategory:Category;
 }
+
 
 const ExpenseTable = (props: ExpenseTableProps) => {
 
-    const [showForm,setShowForm] = useState<boolean>(false);
+    const [showModal,setShowModal] = useState<boolean>(false);
     const [editExpense,setEditExpense] = useState<Expense | null>(null);
-
 
     const handleCreate = async (expense:Expense) => {
         //creating the post data object
         props.onCreate(expense);
-        setShowForm(false);
+        setShowModal(false);
 
     }
 
@@ -39,7 +44,7 @@ const ExpenseTable = (props: ExpenseTableProps) => {
     const handleUpdate = async (expense:Expense) => {
         //creating the put data object
         props.onUpdate(expense);
-        setShowForm(false);
+        setShowModal(false);
         setEditExpense(null);
     }
 
@@ -48,17 +53,19 @@ const ExpenseTable = (props: ExpenseTableProps) => {
         <div className = "expense-header">
             <h2>Expenses</h2>
             <button onClick={()=>{
-                setShowForm(true);
+                setShowModal(true);
                 setEditExpense(null);
             }}>Add Expense</button>
-            {showForm &&
-            <ExpenseForm
+            {showModal &&
+            <ExpenseModal
              expense={editExpense}
              onSubmit={editExpense? handleUpdate : handleCreate}
              onClose={() => {
-                setShowForm(false);
+                setShowModal(false);
                 setEditExpense(null);
-             }}/>
+             }}
+             category={props.expCategory}
+             />
             }
         </div>
         <table className='expense-table'>
@@ -82,7 +89,7 @@ const ExpenseTable = (props: ExpenseTableProps) => {
                         <td>{expense.categoryName}</td>
                         <td className='action-buttons'>
                             <button onClick={() => {
-                                setShowForm(true);
+                                setShowModal(true);
                                 //to make sure the date input is correctly formatted dd-mm-yyyy
                                 setEditExpense({...expense,date:new Date(expense.date).toISOString().split("T")[0]});
                             }}>Edit</button>

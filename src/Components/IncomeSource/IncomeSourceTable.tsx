@@ -1,8 +1,8 @@
 import {useState,useEffect} from 'react'
 import {coreApi} from '../../api/coreApi'
 import './IncomeSourceTable.css'
-import IncomeSourceForm from './IncomeSourceForm';
 import IncomeSourceCard from './IncomeSourceCard';
+import IncomeSourceModal from './IncomeSourceModal';
 
 type Source = {
   id: number;
@@ -14,7 +14,7 @@ type FormData = {
 
 const IncomeSourceTable = () => {
     const [sources,setSources] = useState<Source[]>([]);
-    const [showForm,setShowForm] = useState<boolean>(false);
+    const [showModal,setShowModal] = useState<boolean>(false);
     const [editSource,setEditSource] = useState<Source | null>(null);
 
     //fetch all categories from the backend
@@ -43,7 +43,7 @@ const IncomeSourceTable = () => {
         }
         // Making sure the form data is reseted
 
-        setShowForm(false);
+        setShowModal(false);
     }
     const handleDelete = async (sourceId : number) =>{
         try{
@@ -71,7 +71,7 @@ const IncomeSourceTable = () => {
             console.error('Error updating source:', error);
         }
         //resetting the form data
-        setShowForm(false);
+        setShowModal(false);
         setEditSource(null);
 
     }
@@ -79,24 +79,24 @@ const IncomeSourceTable = () => {
         console.log("here");
         console.log(updatedSource);
         setEditSource(updatedSource);
-        setShowForm(true);
+        setShowModal(true);
     }
     
   return (
     <div>
       <div className = "source-header">
       <h2>Income Sources</h2>
-      {!showForm && <button onClick ={()=>{
-        setShowForm(true);
+      {!showModal && <button onClick ={()=>{
+        setShowModal(true);
         setEditSource(null);}
         }>Add Source</button>}
-      {showForm && (
-        <IncomeSourceForm
+      {showModal && (
+        <IncomeSourceModal
             name = {editSource ? editSource.name : ''}
             sourceId={editSource? editSource.id:null}
             onSubmit = {!editSource ? handleCreate: handleUpdate}
             onClose = {()=>{
-                setShowForm(false);
+                setShowModal(false);
                 setEditSource(null);  
             }}
             />

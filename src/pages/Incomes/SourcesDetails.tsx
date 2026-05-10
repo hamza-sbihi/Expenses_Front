@@ -8,22 +8,28 @@ type Income = {
   description: string;
   date: string;
   amount: number;
-  incomeSourceId: number;
-  incomeSourceName: string;
+  incomeSourceId: number | undefined;
+  incomeSourceName: string |undefined;
+}
+type IncomeSource = {
+    id: number;
+    name : string;
 }
 
 const SourcesDetails = () => {
 
     const {id} = useParams();
     const [incomes,setIncomes] = useState<Income[]>([]);
+    const [incSource,setIncSource] = useState<IncomeSource|null>(null);
+    
     
     const fetchData = async() =>{
         try{
-            console.log(id);
-            console.log("heeere");
+
             const responseIncomes = await coreApi.income.getIncomeBySource(Number(id));
+            const reponseIncomeSourceId = await coreApi.incomeSource.getSourceById(Number(id));
             setIncomes(responseIncomes.data); 
-            console.log("here  "+responseIncomes);
+            setIncSource(reponseIncomeSourceId.data);
         }
         catch(error){
             console.error('Error fetching incomes:', error);
@@ -99,7 +105,8 @@ const SourcesDetails = () => {
          incomes = {incomes} 
          onCreate={handleCreate} 
          onUpdate={handleUpdate} 
-         onDelete={handleDelete}/>
+         onDelete={handleDelete}
+         incomeSource={incSource}/>
     </div>
   )
 }

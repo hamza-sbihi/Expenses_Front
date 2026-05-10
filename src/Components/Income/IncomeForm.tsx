@@ -1,13 +1,14 @@
 import {useEffect, useState} from 'react'
 import { coreApi } from '../../api/coreApi';
+import './IncomeForm.css'
 
-type Income = {
+export type Income = {
   id: number;
   description: string;
   date: string;
   amount: number;
-  incomeSourceId: number;
-  incomeSourceName: string
+  incomeSourceId: number | undefined;
+  incomeSourceName: string | undefined
 }
 
 type Source = {
@@ -15,10 +16,11 @@ type Source = {
   name: string;
 }
 
-type IncomeFormProps = {
+export type IncomeFormProps = {
     income: Income | null;
     onSubmit: (income: Income) => void;
     onClose: () => void;
+    incomeSource : Source | null;
 }
 
 const IncomeForm = (props: IncomeFormProps) => {
@@ -28,8 +30,8 @@ const IncomeForm = (props: IncomeFormProps) => {
         description: "",
         date: "",
         amount: 0,
-        incomeSourceId: 0,
-        incomeSourceName: ""
+        incomeSourceId: props.incomeSource?.id,
+        incomeSourceName: props.incomeSource?.name
     };  
     const [formData,setFormData] = useState<Income>(props.income? props.income : emptyIncome);
     const [sources,setSources] = useState<Source[]>([]);
@@ -54,8 +56,9 @@ const IncomeForm = (props: IncomeFormProps) => {
     }, [props.income]);
 
   return (
-    <div>
-        <form onSubmit={(e)=>
+    <div className='modal-content'>
+        <h2 className='title'>{isEditMode? "Update Income":"Create Income"}</h2>
+        <form className='form' onSubmit={(e)=>
         {e.preventDefault();
          props.onSubmit(formData)}}>
             <label >
@@ -83,7 +86,7 @@ const IncomeForm = (props: IncomeFormProps) => {
                  }}/>
             </label>
             <label >
-                Cost:
+                Amount:
                 <input 
                  name = "amount"
                  type="number"
@@ -93,7 +96,7 @@ const IncomeForm = (props: IncomeFormProps) => {
                  }}/>
             </label>
             <label >
-                CategoryID:
+                Source:
                 <select 
                 value={formData?.incomeSourceId}
                 onChange={(e)=>{
@@ -102,7 +105,7 @@ const IncomeForm = (props: IncomeFormProps) => {
                     })
                 }}
                 >
-                    <option value={""}>Select a category</option>
+                    <option value={""}>Select a source</option>
                     {sources.map((source)=>(
                         <option key = {source.id} value={source.id}>
                             {source.name}
@@ -111,10 +114,12 @@ const IncomeForm = (props: IncomeFormProps) => {
 
                 </select>
             </label>
-            <button  type="submit">
-                {isEditMode ? 'Update' : 'Create'}
-                </button>
-            <button onClick = {props.onClose}>close</button>
+            <div className='action-buttons'>
+                <button  type="submit">
+                    {isEditMode ? 'Update' : 'Create'}
+                    </button>
+                <button onClick = {props.onClose}>close</button>
+            </div>
         </form>
       
     </div>

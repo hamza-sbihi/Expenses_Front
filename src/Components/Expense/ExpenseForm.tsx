@@ -15,10 +15,12 @@ type Category = {
   name: string;
 }
 
-type ExpenseFormProps = {
+export type ExpenseFormProps = {
     expense: Expense | null;
     onSubmit: (expense: Expense) => void;
     onClose: () => void;
+    category: Category;
+
 }
 
 const ExpenseForm = (props: ExpenseFormProps) => {
@@ -28,8 +30,8 @@ const ExpenseForm = (props: ExpenseFormProps) => {
         description: "",
         date: "",
         cost: 0,
-        categoryId: 0,
-        categoryName: ""
+        categoryId: props.category.id,
+        categoryName: props.category.name
     };  
     const [formData,setFormData] = useState<Expense>(props.expense? props.expense : emptyExpense);
     const [categories,setCategories] = useState<Category[]>([]);
@@ -54,8 +56,9 @@ const ExpenseForm = (props: ExpenseFormProps) => {
     }, [props.expense]);
 
   return (
-    <div>
-        <form onSubmit={(e)=>
+    <div className = 'modal-content'>
+        <h2 className='title'>{isEditMode? "Update Expense":"Create Expense"}</h2>
+        <form className='form' onSubmit={(e)=>
         {e.preventDefault();
          props.onSubmit(formData)}}>
             <label >
@@ -111,10 +114,12 @@ const ExpenseForm = (props: ExpenseFormProps) => {
 
                 </select>
             </label>
-            <button  type="submit">
-                {isEditMode ? 'Update' : 'Create'}
-                </button>
-            <button onClick = {props.onClose}>close</button>
+            <div className="action-buttons">
+                <button  type="submit">
+                    {isEditMode ? 'Update' : 'Create'}
+                    </button>
+                <button onClick = {props.onClose}>close</button>
+            </div>
         </form>
       
     </div>

@@ -10,6 +10,9 @@ export const coreApi =  {
         getCategories : async () =>{
             return await axiosInstance.get(`${BASE_URL}/api/categories`);
         },
+        getCategoryById : async(categoryId : number) =>{
+            return await axiosInstance.get(`${BASE_URL}/api/categories/${categoryId}`)
+        },
         createCategory : async (postData:{name: string}) =>{
         
             return await axiosInstance.post(`${BASE_URL}/api/categories`,postData);
@@ -60,10 +63,10 @@ export const coreApi =  {
         getIncomes : async () =>{
             return await axiosInstance.get(`${BASE_URL}/api/incomes`);
         },
-        createIncome : async (postData:{description:string, date:string, amount:number,incomeSourceId:number}) =>{
+        createIncome : async (postData:{description:string, date:string, amount:number,incomeSourceId:number | undefined}) =>{
             return await axiosInstance.post(`${BASE_URL}/api/incomes`,postData);
         },
-        updateIncome : async (incomeId:number,putData:{description:string, date:string, amount:number,incomeSourceId:number}) =>{
+        updateIncome : async (incomeId:number,putData:{description:string, date:string, amount:number,incomeSourceId:number | undefined}) =>{
             return await axiosInstance.put(`${BASE_URL}/api/incomes/${incomeId}`,putData);
         },
         deleteIncome : async (incomeId:number)=>{
@@ -96,6 +99,9 @@ export const coreApi =  {
     incomeSource : {
         getSources: async() =>{
             return axiosInstance.get(`${BASE_URL}/api/incomes_sources`);
+        },
+        getSourceById: async(sourceId:number) =>{
+            return await axiosInstance.get(`${BASE_URL}/api/incomes_sources/${sourceId}`)
         },
         createSource : async(name:string)=>{
             return axiosInstance.post(`${BASE_URL}/api/incomes_sources`,name);

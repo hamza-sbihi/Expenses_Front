@@ -11,15 +11,22 @@ type Expense = {
   categoryId: number;
   categoryName: string;
 }
+type Category = {
+    id: number;
+    name: string;
+}
 
 const CategoryDetails = () => {
 
     const {id} = useParams();
     const [expenses,setExpenses] = useState<Expense[]>([]);
+    const [expCategory,setExpCategory] = useState<Category>({id:0,name:""});
     
     const fetchData = async() =>{
         try{
             const responseExpenses = await coreApi.expense.getExpensesByCategory(Number(id));
+            const responseCategoryId = await coreApi.category.getCategoryById(Number(id));
+            setExpCategory(responseCategoryId.data);
             setExpenses(responseExpenses.data); 
         }
         catch(error){
@@ -96,7 +103,8 @@ const CategoryDetails = () => {
          expenses = {expenses} 
          onCreate={handleCreate} 
          onUpdate={handleUpdate} 
-         onDelete={handleDelete}/>
+         onDelete={handleDelete}
+         expCategory={expCategory}/>
     </div>
   )
 }
