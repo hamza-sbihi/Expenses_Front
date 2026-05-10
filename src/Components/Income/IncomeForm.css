@@ -1,16 +1,16 @@
-.income-form{
+.form{
     display: flex;
     flex-direction: column;
 }
-.income-form label {
+.form label {
   display: flex;
   flex-direction: column; 
   gap: 8px;
   padding: 5px 10px;
   align-items: flex-start;
 }
-.income-form input,
-.income-form select {
+.form input,
+.form select {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;

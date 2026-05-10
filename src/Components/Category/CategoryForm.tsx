@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-type CategoryFormProps = {
+export type CategoryFormProps = {
     name:string;
     categoryId:number | null;
     onSubmit:(name:string)=>void;
@@ -14,8 +14,9 @@ function CategoryForm(props: CategoryFormProps) {
   const isEditMode = props.categoryId !== null;
 
   return (
-    <div>
-      <form onSubmit={(e)=>
+    <div className='modal-content'>
+        <h2 className='title'>{isEditMode? "Edit Category":"Create Category"}</h2>
+      <form className='form' onSubmit={(e)=>
       {e.preventDefault();
        props.onSubmit(formData.name)}}>
             <label>
@@ -32,10 +33,12 @@ function CategoryForm(props: CategoryFormProps) {
                 }
                  />
             </label>
-            <button  type="submit">
-                {isEditMode ? 'Update' : 'Create'}
-                </button>
-            <button onClick = {props.onClose}>close</button>
+            <div className='action-buttons'>
+                <button  type="submit">
+                    {isEditMode ? 'Update' : 'Create'}
+                    </button>
+                <button onClick = {props.onClose}>close</button>
+            </div>
         </form>
     </div>
   )

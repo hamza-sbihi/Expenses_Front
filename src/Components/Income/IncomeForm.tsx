@@ -7,8 +7,8 @@ export type Income = {
   description: string;
   date: string;
   amount: number;
-  incomeSourceId: number;
-  incomeSourceName: string
+  incomeSourceId: number | undefined;
+  incomeSourceName: string | undefined
 }
 
 type Source = {
@@ -20,6 +20,7 @@ export type IncomeFormProps = {
     income: Income | null;
     onSubmit: (income: Income) => void;
     onClose: () => void;
+    incomeSource : Source | null;
 }
 
 const IncomeForm = (props: IncomeFormProps) => {
@@ -29,8 +30,8 @@ const IncomeForm = (props: IncomeFormProps) => {
         description: "",
         date: "",
         amount: 0,
-        incomeSourceId: 0,
-        incomeSourceName: ""
+        incomeSourceId: props.incomeSource?.id,
+        incomeSourceName: props.incomeSource?.name
     };  
     const [formData,setFormData] = useState<Income>(props.income? props.income : emptyIncome);
     const [sources,setSources] = useState<Source[]>([]);
@@ -57,7 +58,7 @@ const IncomeForm = (props: IncomeFormProps) => {
   return (
     <div className='modal-content'>
         <h2 className='title'>{isEditMode? "Update Income":"Create Income"}</h2>
-        <form className='income-form' onSubmit={(e)=>
+        <form className='form' onSubmit={(e)=>
         {e.preventDefault();
          props.onSubmit(formData)}}>
             <label >

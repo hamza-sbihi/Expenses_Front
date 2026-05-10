@@ -8,14 +8,19 @@ type Income = {
   description: string;
   date: string;
   amount: number;
-  incomeSourceId: number;
-  incomeSourceName: string
+  incomeSourceId: number | undefined;
+  incomeSourceName: string | undefined
+}
+type IncomeSource = {
+    id: number;
+    name: string;
 }
 type IncomeTableProps = {
     incomes: Income[];
     onCreate: (income: Income) => void;
     onUpdate: (income: Income) => void;
     onDelete: (incomeId: number) => void;
+    incomeSource:IncomeSource|null;
 }
 
 const 
@@ -60,7 +65,8 @@ IncomeTable = (props: IncomeTableProps) => {
              onClose={() => {
                 setShowModal(false);
                 setEditIncome(null);
-             }}/>
+             }}
+             incomeSource={props.incomeSource}/>
             }
         </div>
         <table className='income-table'>

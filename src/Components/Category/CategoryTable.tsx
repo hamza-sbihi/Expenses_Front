@@ -3,6 +3,7 @@ import {coreApi} from '../../api/coreApi'
 import CategoryForm from './CategoryForm'
 import './CategoryTable.css'
 import CategoryCard from './CategoryCard'
+import CategoryModal from './CategoryModal'
 
 type Category = {
   id: number;
@@ -14,7 +15,7 @@ type FormData = {
 
 const CategoryTable = () => {
     const [categories,setCategories] = useState<Category[]>([]);
-    const [showForm,setShowForm] = useState<boolean>(false);
+    const [showModal,setShowModal] = useState<boolean>(false);
     const [editCategory,setEditCategory] = useState<Category | null>(null);
 
     //fetch all categories from the backend
@@ -43,7 +44,7 @@ const CategoryTable = () => {
         }
         // Making sure the form data is reseted
 
-        setShowForm(false);
+        setShowModal(false);
     }
     const handleDelete = async (categoryId : number) =>{
         try{
@@ -72,31 +73,31 @@ const CategoryTable = () => {
             console.error('Error updating category:', error);
         }
         //resetting the form data
-        setShowForm(false);
+        setShowModal(false);
         setEditCategory(null);
 
     }
     const handleCardUpdate = (updatedCategory: Category) => {
         console.log("here");
         setEditCategory(updatedCategory);
-        setShowForm(true);
+        setShowModal(true);
     }
     
   return (
     <div>
       <div className = "category-header">
       <h2>Categories</h2>
-      {!showForm && <button onClick ={()=>{
-        setShowForm(true);
+      {!showModal && <button onClick ={()=>{
+        setShowModal(true);
         setEditCategory(null);}
         }>Add Category</button>}
-      {showForm && (
-        <CategoryForm
+      {showModal && (
+        <CategoryModal
             name = {editCategory ? editCategory.name : ''}
             categoryId={editCategory? editCategory.id:null}
             onSubmit = {!editCategory ? handleCreate: handleUpdate}
             onClose = {()=>{
-                setShowForm(false);
+                setShowModal(false);
                 setEditCategory(null);  
             }}
             />
