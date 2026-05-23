@@ -6,10 +6,22 @@
 }
 .header-actions {
     display: flex;
+    gap: 6px
 }
-.header-actions button{
-    border : 1px solid #213448;
-    border-radius : 8px;
+.dash-button{
+    border : none;
+    border-radius : 10px;
+    background-color: var(--primary);
+    color: var(--background);
+    transition: 0.4s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 4px var(--shadow);
+
+}
+.dash-button:hover{
+    background-color:var(--accent) ;
+    transform: translateY(-1px);
+
 }
 .dashboard-content {
     display: grid;
@@ -20,40 +32,107 @@
 }
 
 .dashboard-content-row1 {
-    padding: 10px 30px;
-    display :flex;
     grid-column: span 1;
     grid-row: span 2;
-    border : 1px solid #213448;
-    border-radius : 8px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 24px;
+
+    border-radius: 16px;
+    background-color: var(--secondary);
+    color: var(--text);
+    box-shadow: 0 1px 4px var(--shadow);
+
+    transition: 0.2s ease;
+
 }
 .donut_action_button{
     display:flex;
     padding: 10px 30px;
+    justify-content: center;
 }
 .dashboard-content-row1 button{
-    border : 1px solid #213448;
-    border-radius : 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius : 50%;
+    width : 50px;
+    height : 50px;
+    background-color: var(--primary);
+    color: var(--background);
+}
+.dashboard-content-row1 button:hover{
+    background-color: var(--accent);
 }
 .dashboard-content-row2 {
     grid-column: span 1;
     grid-row: span 3;
-    border : 1px solid #213448;
-    border-radius : 8px;
+    border-radius: 16px;
+    background-color: var(--secondary);
+    color: var(--text);
+    box-shadow: 0 1px 4px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
+.dashboard-content-row2 .row2-title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:15px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.dashboard-content-row2 .row2-title button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius : 50%;
+    width : 25px;
+    height : 25px;
+    background-color: var(--primary);
+    color: var(--background);
+
+}
+
+.row2-label {
+    color: var(--text-muted);
+
+    font-weight: 500;
+
+    margin: 0;
+}
+.row2-value {
+    color: var(--text);
+
+    font-size: 34px;
+    font-weight: 650;
+
+    line-height: 1;
+
+    margin: 0;
+}
+
 .chart{
     grid-column: span 2;
     grid-row: span 7;
-    border : 1px solid #213448;
+    border : 1px ;
     border-radius : 8px;
     padding: 30px 30px 50px 30px;
+    background-color:var(--surface) ;
 
 }
 .round-chart{
     grid-column: span 1;
     grid-row: span 7;
-    border : 1px solid #213448;
+    border : 1px;
     border-radius : 8px;
+    padding: 30px 30px 50px 30px;
+    background-color:var(--surface) ;
+
 }
 .latest-Transactions{
     grid-column: span 3;
@@ -65,8 +144,4 @@
     padding: 10px 0px;
     display: flex;
     justify-content: space-evenly;  
-}
-.histograme_periods button{
-    border : 1px solid #213448;
-
 }

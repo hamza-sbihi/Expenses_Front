@@ -2,13 +2,51 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   color-scheme: light dark;
-  color: rgba(12, 11, 11, 0.87);
-  background-color: oklch(0.92 0.02 174);
+  color: hsl(203, 42%, 6%);
+  background-color: hsl(192, 36%, 95%);
 
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    /* =========================
+     TEXT
+  ========================== */
+  --text: hsl(203, 42%, 12%);
+  --text-muted: hsl(203, 18%, 38%);
+
+  
+  /* =========================
+     BACKGROUNDS
+  ========================== */
+  --background: hsl(195, 40%, 98%);
+  --surface: hsl(200, 11%, 89%);
+  --surface-elevated: hsl(0, 0%, 100%);
+
+  /* =========================
+     BRAND COLORS
+  ========================== */
+  --primary: hsl(203, 56%, 32%);
+  --secondary: hsl(203, 42%, 78%);
+  --accent: hsl(203, 62%, 45%);
+
+  /* =========================
+     STATUS COLORS
+  ========================== */
+  --income: hsl(160, 70%, 42%);
+  --expense: hsl(15, 85%, 58%);
+  --warning: hsl(42, 95%, 55%);
+
+  /* =========================
+     UI DETAILS
+  ========================== */
+  --border: hsl(203, 9%, 72%);
+  --shadow: hsla(202, 29%, 20%, 0.586);
+
+  /* =========================
+     STATES
+  ========================== */
+  --hover: hsl(203, 30%, 94%);
+  --active: hsl(203, 30%, 90%);
 }
 
 a {
