@@ -7,8 +7,8 @@ type Expense = {
   description: string;
   date: string;
   cost: number;
-  categoryId: number;
-  categoryName: string
+  categoryId: number | undefined;
+  categoryName: string |undefined
 }
 type Category = {
   id: number;
@@ -19,7 +19,7 @@ type ExpenseTableProps = {
     onCreate: (expense: Expense) => void;
     onUpdate: (expense: Expense) => void;
     onDelete: (expenseId: number) => void;
-    expCategory:Category;
+    expCategory?:Category ;
 }
 
 

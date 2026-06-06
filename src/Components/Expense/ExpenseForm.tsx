@@ -6,8 +6,8 @@ type Expense = {
   description: string;
   date: string;
   cost: number;
-  categoryId: number;
-  categoryName: string
+  categoryId: number | undefined;
+  categoryName: string |undefined;
 }
 
 type Category = {
@@ -19,7 +19,7 @@ export type ExpenseFormProps = {
     expense: Expense | null;
     onSubmit: (expense: Expense) => void;
     onClose: () => void;
-    category: Category;
+    category?: Category;
 
 }
 
@@ -30,8 +30,8 @@ const ExpenseForm = (props: ExpenseFormProps) => {
         description: "",
         date: "",
         cost: 0,
-        categoryId: props.category.id,
-        categoryName: props.category.name
+        categoryId: props.category?.id,
+        categoryName: props.category?.name
     };  
     const [formData,setFormData] = useState<Expense>(props.expense? props.expense : emptyExpense);
     const [categories,setCategories] = useState<Category[]>([]);

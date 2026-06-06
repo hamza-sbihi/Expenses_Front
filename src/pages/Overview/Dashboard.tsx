@@ -12,8 +12,8 @@ interface donutChartData {
 }
 type histoData = {
     period : string,
-    totalIncome : number,
-    totalExpenses : number
+    Income : number,
+    Expenses : number
 }
 
 const Dashboard = () => {
@@ -30,6 +30,19 @@ const Dashboard = () => {
   const [endDateState,setEndDateState] = useState<Date>(new Date());
   const [year,setYear] = useState<number>(new Date().getFullYear());
   const [month,setMonth] = useState<number>(new Date().getMonth()+1);
+  const [time,setTime] = useState<string>("");
+
+  const getTime=()=>{
+    const now  = new Date();
+    const hr = now.getHours();
+    if (hr >= 6 && hr < 12) {
+      setTime("Morning");
+    } else if (hr >= 12 && hr < 23) {
+      setTime("Evening"); 
+    } else {
+      setTime("Morning"); 
+    }
+  }
 
   const fetchdata = async(year:number,month:number)=>{
     
@@ -74,7 +87,7 @@ const Dashboard = () => {
 
   }
   useEffect(()=> {
-
+    getTime();
     fetchdata(year,month);
     getExpenseDonut(startDateState.toISOString().split("T")[0],endDateState.toISOString().split("T")[0]);
     getIncomeDonut(startDateState.toISOString().split("T")[0],endDateState.toISOString().split("T")[0]);
@@ -142,12 +155,12 @@ const Dashboard = () => {
   return (
     <div>
       <div className='dashboard-header'>
-        <h2>Good Morning username</h2>
+        <h2>Good {time} username</h2>
         <div className="header-actions">
-          <button onClick = {getThisMonth}>this month</button>
-          <button onClick = {getLastMonth}>last month</button>
-          <button onClick = {getByYear}>this year</button>
-          <button>select period</button>
+          <button className='dash-button' onClick = {getThisMonth}>this month</button>
+          <button className='dash-button' onClick = {getLastMonth}>last month</button>
+          <button className='dash-button' onClick = {getByYear}>this year</button>
+          <button className='dash-button'>select period</button>
         </div>
       </div>
       <div className = 'dashboard-content'>
@@ -156,46 +169,58 @@ const Dashboard = () => {
             <button onClick={()=>{
               navigate('/categories')
             }}>add</button>
-            <p>here will add expense</p>
+            <p>add expense</p>
           </div>
           <div className = 'dashboard-content-row1'>
             <button onClick={()=>{
               navigate('/incomes')
             }}>add</button>
-            <p>here will add income</p>
+            <p>add income</p>
           </div>
           <div className = 'dashboard-content-row1'>
-            <p>here will get AI review</p>
+            <p>AI review</p>
           </div>
         
         {/* Second Row */}
           <div className = 'dashboard-content-row2'>
-            <p>balance</p>
-            <p>{totalIncome-totalExpense}DH</p>
+            <div className='row2-title'>
+              <p className='row2-label'>balance</p>
+            </div>
+            <p className='row2-value'>{totalIncome-totalExpense}DH</p>
           </div>
           <div className = 'dashboard-content-row2'>
-            <p>income</p>
-            <p>{totalIncome}DH</p>
+            <div className='row2-title'>
+              <p className='row2-label'>income</p>
+              <button onClick={()=>{
+                navigate('/incomes')
+              }}>+</button>
+            </div>
+            <p className='row2-value'>{totalIncome}DH</p>
           </div>
           <div className = 'dashboard-content-row2'>
-            <p>expense</p>
-            <p>{totalExpense}DH</p>
+            <div className='row2-title'>
+              <p className='row2-label'>expense</p>
+              <button onClick={()=>{
+                navigate('/categories')
+              }}>+</button>
+            </div>
+            <p className='row2-value'>{totalExpense}DH</p>
           </div>
         
         {/* Third Row */}
           <div className="chart">
             <div className="histograme_periods">
-              <button onClick={()=>changePeriod(Periods.DAY)}> Daily</button>
-              <button onClick={()=>changePeriod(Periods.WEEK)}> Weekly</button>
-              <button onClick={()=>changePeriod(Periods.MONTH)}> Monthly</button>
-              <button onClick={()=>changePeriod(Periods.YEAR)}> Yearly</button>
+              <button className='dash-button' onClick={()=>changePeriod(Periods.DAY)}> Daily</button>
+              <button className='dash-button' onClick={()=>changePeriod(Periods.WEEK)}> Weekly</button>
+              <button className='dash-button' onClick={()=>changePeriod(Periods.MONTH)}> Monthly</button>
+              <button className='dash-button' onClick={()=>changePeriod(Periods.YEAR)}> Yearly</button>
             </div>
             <HistoChart data = {histogrameData}/>
 
           </div>
           <div className="round-chart">
             <div className='donut_action_button'>
-              <button onClick={renderDonutChart}>{isExpense ? "Incomes":"Expenses"}</button>
+              <button className='dash-button' onClick={renderDonutChart}>get {isExpense ? "Incomes":"Expenses"}</button>
 
             </div>
 

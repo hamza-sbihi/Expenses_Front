@@ -1,35 +1,99 @@
-import { ResponsiveContainer,BarChart,CartesianGrid,XAxis,YAxis,Bar,Tooltip,Legend } from 'recharts'
-type histoData = {
-    period : string,
-    totalIncome : number,
-    totalExpenses : number
-}
+import {
+  ResponsiveContainer,
+  BarChart,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Bar,
+  Tooltip,
+  Legend
+} from "recharts";
 
-type histoProps = {
-    data : histoData[]
-}
+type HistoData = {
+  period: string;
+  Income: number;
+  Expenses: number;
+};
 
-const HistoChart = (props : histoProps) => {
+type HistoProps = {
+  data: HistoData[];
+};
+
+const HistoChart = ({ data }: HistoProps) => {
 
   return (
-    <div>
-        <ResponsiveContainer  width="100%" height={300}>
-            <BarChart data = {props.data}>
-                <CartesianGrid strokeDasharray="3 3"/>
 
-                <XAxis dataKey="period"/>
-                <YAxis/>
+    <div style={{ width: "100%", height: 320 }}>
 
-                <Tooltip/>
-                <Legend/>
+      <ResponsiveContainer>
 
-                <Bar dataKey="totalIncome" fill="#00C49F"/>
-                <Bar dataKey="totalExpenses" fill="#FF8042"/>
-            </BarChart>
-        </ResponsiveContainer>
-      
+        <BarChart
+          data={data}
+          barGap={6}
+        >
+
+          <CartesianGrid
+            stroke="var(--border)"
+            strokeDasharray="2 2"
+            vertical={true}
+          />
+
+          <XAxis
+            dataKey="period"
+            tick={{
+              fill: "var(--text-muted)",
+              fontSize: 12
+            }}
+
+            axisLine={true}
+            tickLine={true}
+          />
+
+          <YAxis
+            tick={{
+              fill: "var(--text-muted)",
+              fontSize: 12
+            }}
+
+            axisLine={false}
+            tickLine={false}
+          />
+
+          <Tooltip
+            contentStyle={{
+              backgroundColor: "var(--surface-elevated)",
+              border: "none",
+              borderRadius: "20px",
+              boxShadow: "0 2px 10px var(--shadow)",
+            }}
+          />
+
+          <Legend
+            verticalAlign="bottom"
+            iconType="circle"
+            wrapperStyle={{
+                paddingTop:"20px"
+            }}
+          />
+
+          <Bar
+            dataKey="totalIncome"
+            fill="var(--primary)"
+            radius={[8, 8, 0, 0]}
+          />
+
+          <Bar
+            dataKey="totalExpenses"
+            fill="var(--accent)"
+            radius={[8, 8, 0, 0]}
+          />
+
+        </BarChart>
+
+      </ResponsiveContainer>
+
     </div>
-  )
-}
+  );
+};
 
-export default HistoChart
+export default HistoChart;
